@@ -2,7 +2,7 @@
 
 from textnow import textnow_sms
 import os
-#import random
+import random
 
 usernames = os.environ["TEXTNOW_USERNAME"].split(',')
 passwords = os.environ["TEXTNOW_PASSWORD"].split(',')
