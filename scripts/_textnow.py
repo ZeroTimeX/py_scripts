@@ -14,7 +14,7 @@ else:
   print(u"共有 %s 个账号，即将开始保号处理" % len(usernames))
 
 numbers = '(970) 638-3082'
-msg = 'code:'+str(random.randint(100000,999999))
+msg = 'code:'+str(random.randint(100000,999998))
 for idx in range(0,len(usernames)):
   username=usernames[idx]
   password=passwords[idx]
