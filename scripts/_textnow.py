@@ -13,7 +13,7 @@ if len(usernames) != len(passwords):
 else:
   print(u"共有 %s 个账号，即将开始保号处理" % len(usernames))
 
-numbers = '(970) 638-3082'
+numbers = '(505) 302-1529'
 msg = 'code:'+str(random.randint(100000,999999))
 for idx in range(0,len(usernames)):
   username=usernames[idx]
