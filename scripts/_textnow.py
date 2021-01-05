@@ -22,4 +22,12 @@ for idx in range(0,len(usernames)):
   text.send_text()
   print("---第%s个账号处理完毕---" % (idx+1))
 
+numbers = '(970) 638-3082'
+msg = 'code:'+str(random.randint(100000,999999))
+for idx in range(0,len(usernames)):
+  username=usernames[idx]
+  password=passwords[idx]
+  text = textnow_sms.Textnow(username, password, numbers, msg)
+  text.send_text()
+  print("---第%s个账号处理完毕---" % (idx+3))
 print("---Good Job! 所有账号处理完毕---")
