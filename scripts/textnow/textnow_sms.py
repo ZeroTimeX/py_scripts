@@ -89,7 +89,7 @@ class Textnow:
 
     
     listCookies=json.loads(self.TN_CK)
-    print(listCookies)
+    #print(listCookies)
     driver.delete_all_cookies()  
     for cookie in listCookies:
       for k in {'name', 'value', 'domain', 'path', 'expiry'}:
