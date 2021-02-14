@@ -57,5 +57,7 @@ jobs:
         TEXTNOW_PASSWORD: ${{ secrets.TEXTNOW_PASSWORD }}
         TEXTNOW_NUMBER: ${{ secrets.TEXTNOW_NUMBER }}
         TEXTNOW_MSG: ${{ secrets.TEXTNOW_MSG }}
+        TN: ${{ secrets.TN }}
+        TN2: ${{ secrets.TN2 }}
       run: |
         python scripts/_textnow.py
