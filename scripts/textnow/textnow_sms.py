@@ -8,15 +8,16 @@ from selenium.webdriver.support import expected_conditions as EC
 import os
 import time
 
+import json
+import requests
+
 import importlib,sys
 importlib.reload(sys)
 
 class Textnow:  
 
- 
-  def __init__(self, TN_USER, TN_PASS, PHONE_NUMBER, MESSAGE):
-    self.TN_USER = TN_USER
-    self.TN_PASS = TN_PASS
+  def __init__(self, TN_CK, PHONE_NUMBER, MESSAGE):
+    self.TN_CK = TN_CK
     self.PHONE_NUMBER = PHONE_NUMBER
     self.MESSAGE = MESSAGE
     self.url = "https://www.textnow.com/login"
@@ -63,22 +64,41 @@ class Textnow:
         pass
     #强制等待8s,主要是等待reCaptcha加载
     time.sleep(8)
-    
     # 分辨率 1920*1080
     driver.set_window_size(1920,1080)
     time.sleep(3)
-
     #presence_of_element_located： 当我们不关心元素是否可见，只关心元素是否存在在页面中。
     #visibility_of_element_located： 当我们需要找到元素，并且该元素也可见。
     
-    WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='username']")))
-    uname_box = driver.find_element_by_xpath("//input[@name='username']")
-    pass_box = driver.find_element_by_xpath("//input[@name='password']")
-    uname_box.send_keys(self.TN_USER)
-    pass_box.send_keys(self.TN_PASS)
+    #WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='username']")))
+    #uname_box = driver.find_element_by_xpath("//input[@name='username']")
+    #pass_box = driver.find_element_by_xpath("//input[@name='password']")
+    #uname_box.send_keys(self.TN_USER)
+    #pass_box.send_keys(self.TN_PASS)
 
-    login_btn = driver.find_element_by_xpath("//button[@type='submit']")
-    login_btn.click()
+    #login_btn = driver.find_element_by_xpath("//button[@type='submit']")
+    #login_btn.click()
+
+    #time.sleep(100)
+    #cookie = driver.get_cookies() # 获取浏览器cookies
+    #print(cookie)
+    #jsonCookies = json.dumps(cookie)
+    #with open('tn.json', 'w',encoding='utf-8') as f:
+    #  f.write(jsonCookies)
+
+
+    
+    listCookies=self.TN_CK
+    driver.delete_all_cookies()  
+    for cookie in listCookies:
+      for k in {'name', 'value', 'domain', 'path', 'expiry'}:
+        if k not in list(cookie.keys()):
+          if k == 'expiry':
+            t = time.time()
+            cookie[k] = int(t)  #时间戳s
+      driver.add_cookie({k: cookie[k] for k in {'name', 'value', 'domain', 'path', 'expiry'}})
+    time.sleep(3)
+    driver.get("https://www.textnow.com/messaging")
 
     #显性等待，每隔3s检查一下条件是否成立
     try:
